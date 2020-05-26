@@ -3,18 +3,29 @@ package cn.ch1cc.formatter;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * 默认的formatter
+ *
  * @author ChicC
- * @date 2020/3/19 001914:31
- * @desc 默认的formatter
  */
-public class DefaultFormatter {
+public enum DefaultFormatter {
     /**
-     * 年-月-日formatter
+     * 年-月-日
      */
-    public static final DateTimeFormatter Y_M_D = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+    Y_M_D(DateTimeFormatter.ofPattern("uuuu-MM-dd")),
+
     /**
      * 年-月-日 时:分:秒
      */
-    public static final DateTimeFormatter Y_M_D_H_M_S = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+    Y_M_D_H_M_S(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"));
 
+    private DateTimeFormatter dateTimeFormatter;
+
+    DefaultFormatter(DateTimeFormatter dateTimeFormatter) {
+        this.dateTimeFormatter = dateTimeFormatter;
+    }
+
+    public DateTimeFormatter getDateTimeFormatter() {
+        return dateTimeFormatter;
+    }
 }
+

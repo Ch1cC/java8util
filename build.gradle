@@ -1,22 +1,42 @@
 plugins {
     id 'java'
-    id 'maven-publish'
+    id 'maven'
 }
 
 repositories {
+    mavenLocal()
     maven {
-        url = uri('http://172.18.1.190:18081/repository/maven-public/')
+        url 'http://172.18.1.190:18081/repository/maven-public/'
     }
 }
 
 group = 'cn.ch1cc.util'
-version = '1.2.2-SNAPSHOT'
-
+version = '1.2.5-SNAPSHOT'
 task sourceJar(type: Jar) {
+    classifier "sources"
     from sourceSets.main.allJava
 }
+artifacts {
+    archives sourceJar
+}
 
-publishing {
+uploadArchives {
+    repositories.mavenInstaller {
+    }
+    repositories.mavenDeployer {
+        def url
+        if (isSNAPSHOTBuild()) {
+            url = "http://172.18.1.190:18081/repository/maven-snapshots/"
+        } else {
+            url = "http://172.18.1.190:18081/repository/maven-releases/"
+        }
+        repository(url: url) {
+            authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+        }
+    }
+}
+
+/*publishing {
     publications {
         maven(MavenPublication) {
             //指定group/artifact/version信息，可以不填。默认使用项目group/name/version作为groupId/artifactId/version
@@ -45,7 +65,7 @@ publishing {
             }
         }
     }
-}
+}*/
 
 def isSNAPSHOTBuild() {
     return project.version.contains("SNAPSHOT");

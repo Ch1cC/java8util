@@ -11,12 +11,11 @@ import java.util.Date;
 
 /**
  * @author ChicC
- * @date 2020/3/19 001914:57
  */
-public class Str2Date extends DefaultFormatter {
+public class Str2Date {
 
     public static Date byDate(String sqlTime) {
-        return byDate(sqlTime, Y_M_D);
+        return byDate(sqlTime, DefaultFormatter.Y_M_D.getDateTimeFormatter());
     }
 
     public static Date byDate(String sqlTime, DateTimeFormatter formatter) {
@@ -25,12 +24,11 @@ public class Str2Date extends DefaultFormatter {
     }
 
     public static Date byDateTime(String sqlTime) {
-        return byDateTime(sqlTime, Y_M_D_H_M_S);
+        return byDateTime(sqlTime, DefaultFormatter.Y_M_D_H_M_S.getDateTimeFormatter());
     }
 
     public static Date byDateTime(String sqlTime, DateTimeFormatter formatter) {
         Instant instant = LocalDateTime.parse(sqlTime, formatter).atZone(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
     }
-
 }
