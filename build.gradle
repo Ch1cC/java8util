@@ -11,7 +11,7 @@ repositories {
 }
 
 group = 'cn.ch1cc.util'
-version = '1.2.6-SNAPSHOT'
+version = '1.2.7-SNAPSHOT'
 task sourceJar(type: Jar) {
     classifier "sources"
     from sourceSets.main.allJava
