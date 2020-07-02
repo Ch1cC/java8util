@@ -67,4 +67,14 @@ public class ZoneDate {
         Instant instant = date.toInstant();
         return Date.from(LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).plusDays(daysToPlus).atZone(ZoneId.systemDefault()).toInstant());
     }
+
+    /**
+     * 根据秒转换为date
+     *
+     * @return Date
+     */
+    public static Date second2Date(Long date) {
+        return Date.from(Instant.ofEpochSecond(date));
+    }
+
 }
